@@ -4,314 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>TLMCOMPANY</title>
-    <!-- Google Fonts + Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f0f4fa;
-            color: #1a2c3e;
-            padding: 24px 20px 48px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-        .logo-area h1 {
-            font-size: 1.9rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #1E3C72, #2A5298);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.5px;
-        }
-        .logo-area p {
-            font-size: 0.85rem;
-            color: #54708f;
-            margin-top: 6px;
-        }
-        
-        .stats-cards {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-        }
-        .stat-card {
-            background: white;
-            border-radius: 28px;
-            padding: 20px 28px;
-            flex: 1;
-            min-width: 200px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-            border: 1px solid rgba(42,127,170,0.15);
-            transition: transform 0.2s;
-        }
-        .stat-card:hover {
-            transform: translateY(-2px);
-        }
-        .stat-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #6c8db0;
-            margin-bottom: 12px;
-        }
-        .stat-main {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-        }
-        .stat-value {
-            font-size: 2.3rem;
-            font-weight: 800;
-            color: #1a4c6e;
-            line-height: 1.2;
-        }
-        .stat-change {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 4px 12px;
-            border-radius: 40px;
-            background: #f0f9f0;
-        }
-        .stat-change.positive {
-            color: #2b7e3a;
-            background: #e8f5e9;
-        }
-        .stat-change.negative {
-            color: #c62828;
-            background: #ffebee;
-        }
-        .stat-period {
-            font-size: 0.7rem;
-            color: #8aa4c0;
-            margin-top: 8px;
-        }
-        .stat-change i {
-            font-size: 0.8rem;
-        }
-
-        .filter-card {
-            background: white;
-            border-radius: 32px;
-            padding: 18px 24px;
-            margin-bottom: 28px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.03);
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-        .range-title {
-            font-weight: 600;
-            color: #1e3a5f;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .date-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .date-btn {
-            background: #f1f5f9;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 500;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #2c3e5c;
-        }
-        .date-btn.active {
-            background: #1e466e;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .date-btn:hover:not(.active) {
-            background: #e2e8f0;
-        }
-        .custom-range {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            background: #f8fafc;
-            padding: 5px 16px;
-            border-radius: 48px;
-        }
-        .custom-date {
-            border: 1px solid #cbd5e1;
-            padding: 8px 12px;
-            border-radius: 32px;
-            font-family: 'Inter', sans-serif;
-            background: white;
-        }
-        .apply-btn {
-            background: #2a7faa;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 32px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .apply-btn:hover {
-            background: #1e5f7e;
-        }
-
-        .chart-main {
-            background: white;
-            border-radius: 32px;
-            padding: 20px 18px;
-            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.06);
-            margin-bottom: 28px;
-        }
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            gap: 12px;
-        }
-        .chart-header h3 {
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #1e3a5f;
-        }
-        .period-stats {
-            background: #eef3fc;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        canvas {
-            max-height: 360px;
-            width: 100%;
-        }
-
-        .data-editor {
-            background: white;
-            border-radius: 32px;
-            padding: 24px;
-            margin-top: 28px;
-            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.06);
-        }
-        .data-editor h3 {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #1e3a5f;
-            margin-bottom: 16px;
-        }
-        .editor-controls {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .editor-input {
-            padding: 10px 16px;
-            border: 1px solid #cbd5e1;
-            border-radius: 32px;
-            font-family: 'Inter', sans-serif;
-        }
-        .btn-primary {
-            background: #2a7faa;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 32px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-primary:hover {
-            background: #1e5f7e;
-        }
-        .btn-danger {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 32px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-danger:hover {
-            background: #b91c1c;
-        }
-        .data-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .data-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .data-item:hover {
-            background: #f8fafc;
-        }
-        .data-info {
-            display: flex;
-            gap: 20px;
-            align-items: baseline;
-            flex-wrap: wrap;
-        }
-        .data-amount {
-            font-weight: 700;
-            color: #16a34a;
-        }
-        .data-date {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-        footer {
-            text-align: center;
-            margin-top: 48px;
-            font-size: 0.75rem;
-            color: #7a97b5;
-        }
-        button {
-            cursor: pointer;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f0f4fa; color: #1a2c3e; padding: 24px 20px 48px; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 32px; }
+        .logo-area h1 { font-size: 1.9rem; font-weight: 800; background: linear-gradient(135deg, #1E3C72, #2A5298); background-clip: text; -webkit-background-clip: text; color: transparent; letter-spacing: -0.5px; }
+        .logo-area p { font-size: 0.85rem; color: #54708f; margin-top: 6px; }
+        .stats-cards { display: flex; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; }
+        .stat-card { background: white; border-radius: 28px; padding: 20px 28px; flex: 1; min-width: 200px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); border: 1px solid rgba(42,127,170,0.15); transition: transform 0.2s; }
+        .stat-card:hover { transform: translateY(-2px); }
+        .stat-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #6c8db0; margin-bottom: 12px; }
+        .stat-main { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+        .stat-value { font-size: 2.3rem; font-weight: 800; color: #1a4c6e; line-height: 1.2; }
+        .stat-change { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 1rem; padding: 4px 12px; border-radius: 40px; background: #f0f9f0; }
+        .stat-change.positive { color: #2b7e3a; background: #e8f5e9; }
+        .stat-change.negative { color: #c62828; background: #ffebee; }
+        .stat-period { font-size: 0.7rem; color: #8aa4c0; margin-top: 8px; }
+        .stat-change i { font-size: 0.8rem; }
+        .filter-card { background: white; border-radius: 32px; padding: 18px 24px; margin-bottom: 28px; box-shadow: 0 6px 14px rgba(0,0,0,0.03); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+        .range-title { font-weight: 600; color: #1e3a5f; display: flex; align-items: center; gap: 8px; }
+        .date-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+        .date-btn { background: #f1f5f9; border: none; padding: 10px 20px; border-radius: 40px; font-weight: 500; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: #2c3e5c; }
+        .date-btn.active { background: #1e466e; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .date-btn:hover:not(.active) { background: #e2e8f0; }
+        .custom-range { display: flex; gap: 12px; align-items: center; background: #f8fafc; padding: 5px 16px; border-radius: 48px; }
+        .custom-date { border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 32px; font-family: 'Inter', sans-serif; background: white; }
+        .apply-btn { background: #2a7faa; color: white; border: none; padding: 8px 18px; border-radius: 32px; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .apply-btn:hover { background: #1e5f7e; }
+        .chart-main { background: white; border-radius: 32px; padding: 20px 18px; box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.06); margin-bottom: 28px; }
+        .chart-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 20px; gap: 12px; }
+        .chart-header h3 { font-weight: 700; font-size: 1.3rem; color: #1e3a5f; }
+        .period-stats { background: #eef3fc; padding: 8px 20px; border-radius: 40px; font-size: 0.85rem; font-weight: 500; }
+        canvas { max-height: 360px; width: 100%; }
+        footer { text-align: center; margin-top: 48px; font-size: 0.75rem; color: #7a97b5; }
+        button { cursor: pointer; }
         @media (max-width: 640px) {
             body { padding: 16px; }
             .stat-value { font-size: 1.6rem; }
@@ -327,8 +57,7 @@
         <div class="logo-area">
             <h1><i class="fas fa-chart-line" style="color: #2a7faa;"></i> TLMC</h1>
         </div>
-        <div style="background: #eef2f8; padding: 6px 20px; border-radius: 48px; font-weight: 600; color: #1e466e;">
-        </div>
+        <div style="background: #eef2f8; padding: 6px 20px; border-radius: 48px; font-weight: 600; color: #1e466e;"></div>
     </div>
 
     <div class="stats-cards">
@@ -336,8 +65,8 @@
             <div class="stat-label"><i class="fas fa-chart-line"></i> ДОХОД ЗА ПЕРИОД</div>
             <div class="stat-main">
                 <span class="stat-value" id="periodTotalValue">0</span>
-                <span class="stat-change" id="periodChangeBadge">
-                    <i class="fas fa-chart-line"></i> <span id="changePercent">0%</span>
+                <!--<span class="stat-change" id="periodChangeBadge">
+                     <i class="fas fa-chart-line"></i> <span id="changePercent">0%</span> -->
                 </span>
             </div>
             <div class="stat-period" id="periodRangeText">за выбранный период</div>
@@ -350,7 +79,7 @@
                     <i class="fas fa-arrow-up"></i> <span id="last5daysAbsChange">0</span>
                 </span>
             </div>
-            <div class="stat-period">изменение за 5 дней</div>
+            <div class="stat-period">статистика за 5 дней</div>
         </div>
     </div>
 
@@ -379,507 +108,316 @@
         <canvas id="profitLineChart" width="800" height="350" style="max-width:100%; height:auto;"></canvas>
     </div>
 
-    <!-- Редактор данных: только евро 
-    <div class="data-editor">
-        <h3><i class="fas fa-edit"></i> Редактор доходов</h3>
-        <div class="editor-controls">
-            <input type="number" id="newAmount" class="editor-input" placeholder="Сумма" step="100">
-            <input type="date" id="newDate" class="editor-input">
-            <button id="addIncomeBtn" class="btn-primary"><i class="fas fa-plus"></i> Добавить</button>
-            <button id="resetDataBtn" class="btn-danger"><i class="fas fa-trash"></i> Сбросить к начальным</button>
-        </div>
-        <div class="data-list" id="dataList"></div>
-    </div> -->
-
     <footer><i class="fas fa-chart-pie"></i> Данные хранятся приватно.</footer>
 </div>
 
 <script>
-    // ========== 📊 НАЧАЛЬНЫЕ ДАННЫЕ - ТОЛЬКО ЕВРО ==========
-    // Просто меняй суммы (уже в евро) в массиве ниже!
-    const DEFAULT_INCOMES = [
-        { id: 1, amount: 0.14, dateISO: "2026-04-15" },
-        { id: 2, amount: 0.11, dateISO: "2026-04-16" },
-    ];
-    // =====================================================
-
-    let allIncomes = [];
-    const STORAGE_KEY = "profitflow_editor_eur_direct";
-
-    let currentStartDate = "";
-    let currentEndDate = "";
-    let activePeriod = "week";
-    let lineChart = null;
-
-    // Сохранение в localStorage
-    function saveToLocal() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(allIncomes));
-    }
-
-    // Загрузка из localStorage
-    function loadFromLocal() {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-            try {
-                const parsed = JSON.parse(raw);
-                if (Array.isArray(parsed) && parsed.length > 0) {
-                    allIncomes = parsed;
-                    return true;
-                }
-            } catch(e) {}
-        }
-        // Если нет сохранённых — используем начальные (суммы уже в евро)
-        allIncomes = JSON.parse(JSON.stringify(DEFAULT_INCOMES));
-        saveToLocal();
-        return false;
-    }
-
-    // Сброс к дефолтным данным (евро)
-    function resetToDefault() {
-        allIncomes = JSON.parse(JSON.stringify(DEFAULT_INCOMES));
-        saveToLocal();
-        refreshAll();
-    }
-
-    // Добавление дохода (сумма уже в евро)
-    function addIncome(amountEUR, dateISO) {
-        if (!amountEUR || amountEUR <= 0) {
-            alert("Введите корректную сумму в евро (больше 0)");
-            return false;
-        }
-        if (!dateISO) {
-            alert("Выберите дату");
-            return false;
-        }
-        const newId = Math.max(...allIncomes.map(i => i.id), 0) + 1;
-        allIncomes.push({
-            id: newId,
-            amount: parseFloat(amountEUR),
-            dateISO: dateISO
-        });
-        allIncomes.sort((a, b) => a.dateISO.localeCompare(b.dateISO));
-        saveToLocal();
-        return true;
-    }
-
-    // Удаление дохода
-    function deleteIncome(id) {
-        allIncomes = allIncomes.filter(inc => inc.id !== id);
-        saveToLocal();
-        refreshAll();
-    }
-
-    // Форматирование даты в ISO
-    function formatDateISO(date) {
-        let d = new Date(date);
-        let year = d.getFullYear();
-        let month = String(d.getMonth() + 1).padStart(2, '0');
-        let day = String(d.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
-
-    // Получение диапазона дат по периоду
-    function getDateRangeForPeriod(period) {
-        const now = new Date();
-        let start = new Date();
-        let end = new Date();
+    (function() {
+        'use strict';
         
-        if (period === 'today') {
-            start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            end = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        } 
-        else if (period === 'week') {
-            const day = now.getDay();
-            const diffToMonday = (day === 0 ? 6 : day - 1);
-            start = new Date(now);
-            start.setDate(now.getDate() - diffToMonday);
-            start.setHours(0,0,0,0);
-            end = new Date(start);
-            end.setDate(start.getDate() + 6);
-        } 
-        else if (period === 'month') {
-            start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-            end = new Date(now.getFullYear(), now.getMonth(), 0);
-        } 
-        else if (period === 'year') {
-            start = new Date(now.getFullYear(), 0, 1);
-            end = new Date(now.getFullYear(), 11, 31);
-        } 
-        else if (period === 'all') {
-            start = new Date(2000, 0, 1);
-            end = new Date(2030, 11, 31);
-        }
+        // Константы и начальные данные
+        const DEFAULT_INCOMES = [
+            { id: 1, amount: 0.14, dateISO: "2026-04-15" },
+            { id: 2, amount: 0.11, dateISO: "2026-04-16" },
+            { id: 3, amount: 0.09, dateISO: "2026-04-17" },
+            { id: 4, amount: 0.12, dateISO: "2026-04-18" },
+        ];
         
-        return { 
-            startDate: formatDateISO(start), 
-            endDate: formatDateISO(end) 
+        // DOM элементы
+        const DOM = {
+            periodTotalValue: document.getElementById('periodTotalValue'),
+            periodRangeText: document.getElementById('periodRangeText'),
+            last5daysValue: document.getElementById('last5daysValue'),
+            last5daysChange: document.getElementById('last5daysChange'),
+            periodStatsLabel: document.getElementById('periodStatsLabel'),
+            customStartDate: document.getElementById('customStartDate'),
+            customEndDate: document.getElementById('customEndDate'),
+            profitLineChart: document.getElementById('profitLineChart')
         };
-    }
+        
+        let allIncomes = [...DEFAULT_INCOMES];
+        let currentStartDate = "";
+        let currentEndDate = "";
+        let activePeriod = "week";
+        let lineChart = null;
 
-    // Текстовое описание периода
-    function getPeriodLabel(period, startDate, endDate) {
-        if (period === 'today') return '📅 Сегодня';
-        if (period === 'week') return '📆 Текущая неделя';
-        if (period === 'month') return '📆 Прошлый месяц';
-        if (period === 'year') return '📅 Текущий год';
-        if (period === 'all') return '🌍 Всё время';
-        if (period === 'custom') {
-            const startShort = startDate.slice(5);
-            const endShort = endDate.slice(5);
-            return `⚡ ${startShort} — ${endShort}`;
-        }
-        return '📊 Выбранный диапазон';
-    }
-
-    // Сумма за диапазон дат (в евро)
-    function getTotalForDateRange(startISO, endISO) {
-        const filtered = allIncomes.filter(inc => inc.dateISO >= startISO && inc.dateISO <= endISO);
-        return filtered.reduce((sum, inc) => sum + inc.amount, 0);
-    }
-
-    // Динамика последних 5 дней (в евро)
-    function calculateLast5DaysDynamics() {
-        const today = new Date();
-        today.setHours(0,0,0,0);
-        const endDate = formatDateISO(today);
-        
-        let startLast5 = new Date(today);
-        startLast5.setDate(today.getDate() - 4);
-        const startLast5ISO = formatDateISO(startLast5);
-        
-        let startPrev5 = new Date(startLast5);
-        startPrev5.setDate(startLast5.getDate() - 5);
-        let endPrev5 = new Date(startLast5);
-        endPrev5.setDate(startLast5.getDate() - 1);
-        
-        const startPrev5ISO = formatDateISO(startPrev5);
-        const endPrev5ISO = formatDateISO(endPrev5);
-        
-        const currentPeriodSum = getTotalForDateRange(startLast5ISO, endDate);
-        const prevPeriodSum = getTotalForDateRange(startPrev5ISO, endPrev5ISO);
-        
-        let change = currentPeriodSum - prevPeriodSum;
-        
-        return {
-            currentSum: currentPeriodSum,
-            prevSum: prevPeriodSum,
-            change: change
-        };
-    }
-
-    // Фильтр по диапазону (возвращает записи)
-    function filterIncomesByDateRange(startISO, endISO) {
-        if (!startISO || !endISO) return [];
-        return allIncomes.filter(inc => inc.dateISO >= startISO && inc.dateISO <= endISO);
-    }
-
-    // Форматирование валюты (евро)
-    function formatCurrency(value) {
-        const rounded = Math.round(value * 100) / 100;
-        return `€${rounded.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    }
-
-    function formatCurrencyPlain(value) {
-        const rounded = Math.round(value * 100) / 100;
-        return rounded.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    function formatChangeWithSign(value) {
-        const absVal = Math.abs(value);
-        const formattedAbs = formatCurrencyPlain(absVal);
-        if (value >= 0) {
-            return `+${formattedAbs}`;
-        } else {
-            return `-${formattedAbs}`;
-        }
-    }
-
-    // Агрегация по датам (суммирование евро)
-    function aggregateByDate(incomesArray) {
-        const map = new Map();
-        incomesArray.forEach(inc => {
-            const date = inc.dateISO;
-            const current = map.get(date) || 0;
-            map.set(date, current + inc.amount);
-        });
-        const sortedDates = Array.from(map.keys()).sort((a,b) => a.localeCompare(b));
-        const valuesEUR = sortedDates.map(d => map.get(d));
-        const labels = sortedDates.map(d => {
-            const parts = d.split('-');
-            return `${parts[2]}.${parts[1]}`;
-        });
-        return { labels, values: valuesEUR, dates: sortedDates };
-    }
-
-    // Обновление виджетов статистики
-    function updateStatsWidgets(startISO, endISO) {
-        const periodTotalEUR = getTotalForDateRange(startISO, endISO);
-        document.getElementById('periodTotalValue').innerHTML = formatCurrency(periodTotalEUR);
-        
-        const dynamics = calculateLast5DaysDynamics();
-        const currentSumEUR = dynamics.currentSum;
-        const changeEUR = dynamics.change;
-        
-        document.getElementById('last5daysValue').innerHTML = formatCurrency(currentSumEUR);
-        
-        const changeBadge = document.getElementById('last5daysChange');
-        const isPositive = changeEUR >= 0;
-        
-        const changeFormatted = formatChangeWithSign(changeEUR);
-        
-        if (isPositive) {
-            changeBadge.className = "stat-change positive";
-            changeBadge.innerHTML = `<i class="fas fa-arrow-up"></i> ${changeFormatted}`;
-        } else {
-            changeBadge.className = "stat-change negative";
-            changeBadge.innerHTML = `<i class="fas fa-arrow-down"></i> ${changeFormatted}`;
-        }
-        
-        let rangeText = "";
-        if (activePeriod === 'custom') {
-            rangeText = `${startISO.slice(5)} — ${endISO.slice(5)}`;
-        } else {
-            if (activePeriod === 'today') rangeText = 'сегодня';
-            else if (activePeriod === 'week') rangeText = 'текущей недели';
-            else if (activePeriod === 'month') rangeText = 'прошлого месяца';
-            else if (activePeriod === 'year') rangeText = 'текущего года';
-            else if (activePeriod === 'all') rangeText = 'всего времени';
-        }
-        document.getElementById('periodRangeText').innerHTML = `за ${rangeText}`;
-    }
-
-    // Основное обновление графика и UI для диапазона
-    function updateUIForRange(startISO, endISO) {
-        if (!startISO || !endISO) return;
-        
-        const filtered = filterIncomesByDateRange(startISO, endISO);
-        window._chartFilteredData = filtered;
-        const { labels, values, dates } = aggregateByDate(filtered);
-        
-        if (lineChart) {
-            lineChart.destroy();
-        }
-        
-        const ctx = document.getElementById('profitLineChart').getContext('2d');
-        
-        lineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Прибыль (EUR)',
-                    data: values,
-                    borderColor: '#22c55e',
-                    backgroundColor: 'rgba(34,197,94,0.12)',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#16a34a',
-                    pointHoverBackgroundColor: '#22c55e',
-                    pointHoverBorderColor: '#ffffff',
-                    tension: 0.25,
-                    fill: true
-                }]
+        // Утилиты для работы с датами
+        const DateUtils = {
+            formatISO(date) {
+                const d = new Date(date);
+                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                interaction: {
-                    mode: 'index',
-                    intersect: false
-                },
-                hover: {
-                    mode: 'nearest',
-                    intersect: false
-                },
-                plugins: {
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        titleColor: '#ffffff',
-                        bodyColor: '#e2e8f0',
-                        borderColor: '#22c55e',
-                        borderWidth: 1,
-                        padding: 12,
-                        cornerRadius: 12,
-                        displayColors: false,
-                        callbacks: {
-                            title: (context) => {
-                                const index = context[0].dataIndex;
-                                const fullDate = dates && dates[index] ? dates[index] : null;
-                                if (!fullDate) return '';
-                                const d = new Date(fullDate);
-                                return d.toLocaleString(undefined, {
-                                    day: '2-digit',
-                                    month: '2-digit',
-                                    year: 'numeric'
-                                });
+            
+            getRangeForPeriod(period) {
+                const now = new Date();
+                let start = new Date();
+                let end = new Date();
+                
+                if (period === 'today') {
+                    start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                    end = new Date(start);
+                } else if (period === 'week') {
+                    const day = now.getDay();
+                    const diffToMonday = day === 0 ? 6 : day - 1;
+                    start = new Date(now);
+                    start.setDate(now.getDate() - diffToMonday);
+                    start.setHours(0,0,0,0);
+                    end = new Date(start);
+                    end.setDate(start.getDate() + 6);
+                } else if (period === 'month') {
+                    start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                    end = new Date(now.getFullYear(), now.getMonth(), 0);
+                } else if (period === 'year') {
+                    start = new Date(now.getFullYear(), 0, 1);
+                    end = new Date(now.getFullYear(), 11, 31);
+                } else if (period === 'all') {
+                    start = new Date(2000, 0, 1);
+                    end = new Date(2030, 11, 31);
+                }
+                
+                return { startDate: this.formatISO(start), endDate: this.formatISO(end) };
+            },
+            
+            getPeriodLabel(period, startDate, endDate) {
+                const labels = {
+                    today: '📅 Сегодня',
+                    week: '📆 Текущая неделя',
+                    month: '📆 Прошлый месяц',
+                    year: '📅 Текущий год',
+                    all: '🌍 Всё время'
+                };
+                
+                if (period === 'custom') {
+                    return `⚡ ${startDate.slice(5)} — ${endDate.slice(5)}`;
+                }
+                return labels[period] || '📊 Выбранный диапазон';
+            }
+        };
+
+        // Утилиты для форматирования валюты
+        const CurrencyUtils = {
+            format(value) {
+                return `€${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            },
+            
+            formatPlain(value) {
+                return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            },
+            
+            formatChange(value) {
+                const absVal = Math.abs(value);
+                const formatted = this.formatPlain(absVal);
+                return value >= 0 ? `+${formatted}` : `-${formatted}`;
+            }
+        };
+
+        // Управление данными
+        const DataManager = {
+            getTotal(startISO, endISO) {
+                return allIncomes
+                    .filter(inc => inc.dateISO >= startISO && inc.dateISO <= endISO)
+                    .reduce((sum, inc) => sum + inc.amount, 0);
+            },
+            
+            filterByDate(startISO, endISO) {
+                return allIncomes.filter(inc => inc.dateISO >= startISO && inc.dateISO <= endISO);
+            },
+            
+            aggregateByDate(incomesArray) {
+                const map = new Map();
+                incomesArray.forEach(inc => {
+                    map.set(inc.dateISO, (map.get(inc.dateISO) || 0) + inc.amount);
+                });
+                
+                const sortedDates = Array.from(map.keys()).sort();
+                return {
+                    labels: sortedDates.map(d => {
+                        const [year, month, day] = d.split('-');
+                        return `${day}.${month}`;
+                    }),
+                    values: sortedDates.map(d => map.get(d)),
+                    dates: sortedDates
+                };
+            },
+            
+            calculateDynamics() {
+                const today = new Date();
+                today.setHours(0,0,0,0);
+                const endDate = DateUtils.formatISO(today);
+                
+                const startLast5 = new Date(today);
+                startLast5.setDate(today.getDate() - 4);
+                const startLast5ISO = DateUtils.formatISO(startLast5);
+                
+                const startPrev5 = new Date(startLast5);
+                startPrev5.setDate(startLast5.getDate() - 5);
+                const endPrev5 = new Date(startLast5);
+                endPrev5.setDate(startLast5.getDate() - 1);
+                
+                const currentSum = this.getTotal(startLast5ISO, endDate);
+                const prevSum = this.getTotal(DateUtils.formatISO(startPrev5), DateUtils.formatISO(endPrev5));
+                
+                return { currentSum, prevSum, change: currentSum - prevSum };
+            }
+        };
+
+        // Управление UI
+        const UIManager = {
+            updateStats(startISO, endISO) {
+                const periodTotal = DataManager.getTotal(startISO, endISO);
+                DOM.periodTotalValue.textContent = CurrencyUtils.format(periodTotal);
+                
+                const dynamics = DataManager.calculateDynamics();
+                DOM.last5daysValue.textContent = CurrencyUtils.format(dynamics.currentSum);
+                
+                const isPositive = dynamics.change >= 0;
+                DOM.last5daysChange.className = `stat-change ${isPositive ? 'positive' : 'negative'}`;
+                DOM.last5daysChange.innerHTML = `
+                    <i class="fas fa-arrow-${isPositive ? 'up' : 'down'}"></i> 
+                    ${CurrencyUtils.formatChange(dynamics.change)}
+                `;
+                
+                const rangeTexts = {
+                    today: 'сегодня',
+                    week: 'текущей недели',
+                    month: 'прошлого месяца',
+                    year: 'текущего года',
+                    all: 'всего времени',
+                    custom: `${startISO.slice(5)} — ${endISO.slice(5)}`
+                };
+                DOM.periodRangeText.textContent = `за ${rangeTexts[activePeriod] || ''}`;
+            },
+            
+            updateChart(startISO, endISO) {
+                const filtered = DataManager.filterByDate(startISO, endISO);
+                const { labels, values, dates } = DataManager.aggregateByDate(filtered);
+                
+                if (lineChart) lineChart.destroy();
+                
+                const ctx = DOM.profitLineChart.getContext('2d');
+                lineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Прибыль (EUR)',
+                            data: values,
+                            borderColor: '#22c55e',
+                            backgroundColor: 'rgba(34,197,94,0.12)',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#16a34a',
+                            pointHoverBackgroundColor: '#22c55e',
+                            pointHoverBorderColor: '#ffffff',
+                            tension: 0.25,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        interaction: { mode: 'index', intersect: false },
+                        plugins: {
+                            tooltip: {
+                                backgroundColor: '#1e293b',
+                                titleColor: '#ffffff',
+                                bodyColor: '#e2e8f0',
+                                borderColor: '#22c55e',
+                                borderWidth: 1,
+                                padding: 12,
+                                cornerRadius: 12,
+                                displayColors: false,
+                                callbacks: {
+                                    title: (context) => {
+                                        const index = context[0].dataIndex;
+                                        return dates[index] ? new Date(dates[index]).toLocaleDateString() : '';
+                                    },
+                                    label: (context) => `💰 ${CurrencyUtils.format(context.raw)}`
+                                }
                             },
-                            label: (context) => {
-                                return `💰 €${context.raw.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
-                                })}`;
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                title: { display: true, text: 'Валюта', color: '#54708f' },
+                                ticks: {
+                                    callback: (val) => `€${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+                                }
                             }
                         }
-                    },
-                    legend: {
-                        display: false
                     }
-                },
-                scales: {
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Валюта',
-                            color: '#54708f'
-                        },
-                        ticks: {
-                            callback: (val) => `€${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-                        }
-                    }
+                });
+                
+                DOM.periodStatsLabel.textContent = DateUtils.getPeriodLabel(activePeriod, startISO, endISO);
+            },
+            
+            updateDateButtons(activePeriod) {
+                document.querySelectorAll('.date-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.period === activePeriod);
+                });
+            }
+        };
+
+        // Основное приложение
+        const App = {
+            setPeriod(period) {
+                activePeriod = period;
+                const { startDate, endDate } = DateUtils.getRangeForPeriod(period);
+                currentStartDate = startDate;
+                currentEndDate = endDate;
+                
+                UIManager.updateChart(currentStartDate, currentEndDate);
+                UIManager.updateStats(currentStartDate, currentEndDate);
+                UIManager.updateDateButtons(period);
+                
+                DOM.customStartDate.value = currentStartDate;
+                DOM.customEndDate.value = currentEndDate;
+            },
+            
+            applyCustomRange(startISO, endISO) {
+                if (startISO && endISO && startISO <= endISO) {
+                    currentStartDate = startISO;
+                    currentEndDate = endISO;
+                    activePeriod = 'custom';
+                    
+                    UIManager.updateChart(currentStartDate, currentEndDate);
+                    UIManager.updateStats(currentStartDate, currentEndDate);
+                    UIManager.updateDateButtons('custom');
+                    
+                    DOM.customStartDate.value = startISO;
+                    DOM.customEndDate.value = endISO;
+                    return true;
                 }
+                return false;
             }
-        });
+        };
 
-        const labelText = getPeriodLabel(activePeriod, startISO, endISO);
-        document.getElementById('periodStatsLabel').innerHTML = labelText;
-        updateStatsWidgets(startISO, endISO);
-    }
-
-    // Применить произвольный диапазон
-    function applyDateRange(startISO, endISO) {
-        if (startISO && endISO && startISO <= endISO) {
-            currentStartDate = startISO;
-            currentEndDate = endISO;
-            activePeriod = 'custom';
-            updateUIForRange(currentStartDate, currentEndDate);
-            document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('customStartDate').value = startISO;
-            document.getElementById('customEndDate').value = endISO;
-        } else {
-            alert("⚠️ Укажите корректный диапазон дат");
-        }
-    }
-
-    // Установка предустановленного периода
-    function setPeriod(period) {
-        activePeriod = period;
-        const { startDate, endDate } = getDateRangeForPeriod(period);
-        currentStartDate = startDate;
-        currentEndDate = endDate;
-        updateUIForRange(currentStartDate, currentEndDate);
-        
-        document.querySelectorAll('.date-btn').forEach(btn => {
-            if (btn.getAttribute('data-period') === period) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-        
-        document.getElementById('customStartDate').value = currentStartDate;
-        document.getElementById('customEndDate').value = currentEndDate;
-    }
-
-    // Отрисовка списка данных (редактор)
-    function renderDataList() {
-        const container = document.getElementById('dataList');
-        if (!container) return;
-        
-        const sorted = [...allIncomes].sort((a, b) => b.dateISO.localeCompare(a.dateISO));
-        
-        container.innerHTML = sorted.map(inc => `
-            <div class="data-item">
-                <div class="data-info">
-                    <span class="data-amount">€ ${inc.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                    <span class="data-date">📅 ${inc.dateISO}</span>
-                </div>
-                <button class="btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="window.deleteIncome(${inc.id})">
-                    <i class="fas fa-trash"></i> Удалить
-                </button>
-            </div>
-        `).join('');
-        
-        if (sorted.length === 0) {
-            container.innerHTML = '<div style="padding: 20px; text-align: center; color: #64748b;">Нет данных.</div>';
-        }
-    }
-
-    // Полное обновление интерфейса
-    function refreshAll() {
-        renderDataList();
-        if (currentStartDate && currentEndDate) {
-            updateUIForRange(currentStartDate, currentEndDate);
-        } else {
-            setPeriod(activePeriod);
-        }
-    }
-
-    // Инициализация и обработчики событий
-    function init() {
-        loadFromLocal();
-        setPeriod('week');
-        renderDataList();
-        
-        const periodBtns = document.querySelectorAll('.date-btn');
-        periodBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const period = btn.getAttribute('data-period');
-                if (period) setPeriod(period);
+        // Инициализация
+        function init() {
+            App.setPeriod('week');
+            
+            document.querySelectorAll('.date-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const period = btn.dataset.period;
+                    if (period) App.setPeriod(period);
+                });
             });
-        });
-        
-        const applyCustom = document.getElementById('applyCustomRange');
-        if (applyCustom) {
-            applyCustom.addEventListener('click', () => {
-                const start = document.getElementById('customStartDate').value;
-                const end = document.getElementById('customEndDate').value;
-                if (start && end) {
-                    if (start <= end) {
-                        applyDateRange(start, end);
-                    } else {
-                        alert("❌ Ошибка: Дата начала не может быть позже даты окончания.");
-                    }
-                } else {
+            
+            document.getElementById('applyCustomRange')?.addEventListener('click', () => {
+                const start = DOM.customStartDate.value;
+                const end = DOM.customEndDate.value;
+                
+                if (!start || !end) {
                     alert("📅 Пожалуйста, выберите обе даты");
+                } else if (start > end) {
+                    alert("❌ Ошибка: Дата начала не может быть позже даты окончания.");
+                } else {
+                    App.applyCustomRange(start, end);
                 }
             });
         }
-        
-        const addBtn = document.getElementById('addIncomeBtn');
-        if (addBtn) {
-            addBtn.addEventListener('click', () => {
-                let amount = document.getElementById('newAmount').value;
-                const date = document.getElementById('newDate').value;
-                if (amount === "" || amount === null) {
-                    alert("Введите сумму");
-                    return;
-                }
-                amount = parseFloat(amount);
-                if (isNaN(amount)) {
-                    alert("Введите числовое значение");
-                    return;
-                }
-                if (addIncome(amount, date)) {
-                    document.getElementById('newAmount').value = '';
-                    document.getElementById('newDate').value = '';
-                    refreshAll();
-                }
-            });
-        }
-        
-        const resetBtn = document.getElementById('resetDataBtn');
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => {
-                if (confirm('Сбросить все данные к начальным? Все изменения будут потеряны!')) {
-                    resetToDefault();
-                    refreshAll();
-                }
-            });
-        }
-    }
-    
-    // Глобальная функция удаления (для onclick в динамическом списке)
-    window.deleteIncome = deleteIncome;
-    window.addEventListener('DOMContentLoaded', init);
+
+        window.addEventListener('DOMContentLoaded', init);
+    })();
 </script>
 </body>
 </html>
