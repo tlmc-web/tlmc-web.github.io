@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>ProfitFlow | Динамика прибыли (EUR)</title>
+    <title>TLMCOMPANY</title>
     <!-- Google Fonts + Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -347,10 +347,10 @@
             <div class="stat-main">
                 <span class="stat-value" id="last5daysValue">0</span>
                 <span class="stat-change" id="last5daysChange">
-                    <i class="fas fa-arrow-up"></i> <span id="last5daysPercent">0%</span>
+                    <i class="fas fa-arrow-up"></i> <span id="last5daysAbsChange">0</span>
                 </span>
             </div>
-            <div class="stat-period">↑ за 5 дней</div>
+            <div class="stat-period">изменение за 5 дней</div>
         </div>
     </div>
 
@@ -389,10 +389,10 @@
             <button id="resetDataBtn" class="btn-danger"><i class="fas fa-trash"></i> Сбросить к начальным</button>
         </div>
         <div class="data-list" id="dataList"></div>
-    </div>
+    </div> -->
 
     <footer><i class="fas fa-chart-pie"></i> Данные хранятся приватно.</footer>
-</div> -->
+</div>
 
 <script>
     // ========== 📊 НАЧАЛЬНЫЕ ДАННЫЕ - ТОЛЬКО ЕВРО ==========
@@ -558,21 +558,12 @@
         const currentPeriodSum = getTotalForDateRange(startLast5ISO, endDate);
         const prevPeriodSum = getTotalForDateRange(startPrev5ISO, endPrev5ISO);
         
-        let change = 0;
-        let percent = 0;
-        if (prevPeriodSum > 0) {
-            change = currentPeriodSum - prevPeriodSum;
-            percent = (change / prevPeriodSum) * 100;
-        } else if (currentPeriodSum > 0) {
-            percent = 100;
-            change = currentPeriodSum;
-        }
+        let change = currentPeriodSum - prevPeriodSum;
         
         return {
             currentSum: currentPeriodSum,
             prevSum: prevPeriodSum,
-            change: change,
-            percent: percent
+            change: change
         };
     }
 
@@ -591,6 +582,16 @@
     function formatCurrencyPlain(value) {
         const rounded = Math.round(value * 100) / 100;
         return rounded.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function formatChangeWithSign(value) {
+        const absVal = Math.abs(value);
+        const formattedAbs = formatCurrencyPlain(absVal);
+        if (value >= 0) {
+            return `+${formattedAbs}`;
+        } else {
+            return `-${formattedAbs}`;
+        }
     }
 
     // Агрегация по датам (суммирование евро)
@@ -618,19 +619,20 @@
         const dynamics = calculateLast5DaysDynamics();
         const currentSumEUR = dynamics.currentSum;
         const changeEUR = dynamics.change;
-        const percentVal = dynamics.percent;
         
         document.getElementById('last5daysValue').innerHTML = formatCurrency(currentSumEUR);
         
         const changeBadge = document.getElementById('last5daysChange');
-        const isPositive = dynamics.change >= 0;
+        const isPositive = changeEUR >= 0;
+        
+        const changeFormatted = formatChangeWithSign(changeEUR);
         
         if (isPositive) {
             changeBadge.className = "stat-change positive";
-            changeBadge.innerHTML = `<i class="fas fa-arrow-up"></i> +${formatCurrencyPlain(changeEUR)} (${percentVal.toFixed(2)}%)`;
+            changeBadge.innerHTML = `<i class="fas fa-arrow-up"></i> ${changeFormatted}`;
         } else {
             changeBadge.className = "stat-change negative";
-            changeBadge.innerHTML = `<i class="fas fa-arrow-down"></i> -${formatCurrencyPlain(Math.abs(changeEUR))} (${Math.abs(percentVal).toFixed(2)}%)`;
+            changeBadge.innerHTML = `<i class="fas fa-arrow-down"></i> ${changeFormatted}`;
         }
         
         let rangeText = "";
