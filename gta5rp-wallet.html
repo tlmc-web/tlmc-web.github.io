@@ -58,7 +58,7 @@
         /* кнопка GTA5RP */
         .gta-btn {
             background: #ffffff;
-            color: #ffbf00;
+            color: #1E3C72;
             border: 1.5px solid #ffffff;
             padding: 10px 24px;
             border-radius: 60px;
@@ -73,7 +73,7 @@
         }
 
         .gta-btn i {
-            color: #ffc832;
+            color: #1E3C72;
             font-size: 1.3rem;
         }
 
@@ -81,7 +81,7 @@
             background: #ffffff;
             box-shadow: 0 3px 0 #ffffff;
             transform: translateY(3px);
-            color: #ffd057;
+            color: #5c6a83;
         }
 
         .stats-cards {
@@ -340,12 +340,11 @@
     <div class="container">
         <div class="header">
             <div class="logo-area">
-                <h1><i class="fas fa-chart-line" style="color: #2a7faa;"></i> TLMC</h1>
+                <h1><i class="fas fa-chart-line" style="color: #2a7faa;"></i> TLMC - GTA5RP</h1>
             </div>
             <!-- КНОПКА GTA5RP справа -->
-            <a href="gta5rp-wallet.html" class="gta-btn">
-                <i class="fas fa-car"></i> GTA5RP
-                <i class="fas fa-arrow-right"></i>
+            <a href="index.html" class="gta-btn">
+                <i class="fas fa-arrow-left"></i>Назад
             </a>
         </div>
 
@@ -409,13 +408,13 @@
 
             // Константы и начальные данные
             const DEFAULT_INCOMES = [
-                { id: 1, amount: 0.09, dateISO: "2026-04-10" },    
-                { id: 2, amount: 0.12, dateISO: "2026-04-11" },
-                { id: 3, amount: 0.09, dateISO: "2026-04-12" },
-                { id: 4, amount: 0.11, dateISO: "2026-04-15" },
-                { id: 5, amount: 0.10, dateISO: "2026-04-16" },
-                { id: 6, amount: 0.13, dateISO: "2026-04-17" },
-                { id: 7, amount: 0.11, dateISO: "2026-04-18" },
+                { id: 1, amount: 6.49, dateISO: "2026-04-01" },    
+                { id: 2, amount: 32.56, dateISO: "2026-04-02" },
+                { id: 3, amount: 18.54, dateISO: "2026-04-04" },
+                { id: 4, amount: 13.04, dateISO: "2026-04-05" },
+                { id: 5, amount: 9.73, dateISO: "2026-04-06" },
+                { id: 6, amount: 5.65, dateISO: "2026-04-08" },
+                { id: 7, amount: 14.92, dateISO: "2026-04-19" },
             ];
 
             // DOM элементы
@@ -493,7 +492,7 @@
             // Утилиты для форматирования валюты
             const CurrencyUtils = {
                 format(value) {
-                    return `€${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                 },
 
                 formatPlain(value) {
@@ -673,7 +672,7 @@
                                 y: {
                                     title: { display: true, text: 'Валюта', color: '#54708f' },
                                     ticks: {
-                                        callback: (val) => `€${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+                                        callback: (val) => `$${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
                                     }
                                 }
                             }
@@ -755,7 +754,7 @@
                         e.preventDefault();
                         // В реальном проекте здесь window.location.href = 'gta5rp.html';
                         // Для демонстрации — алерт, но кнопка работает как ссылка.
-                        alert('🚔 Переход на страницу GTA5RP.');
+                        alert('🚔 Переход на страницу GTA5RP (демо). Реализуйте редирект.');
                         // window.location.href = 'gta5rp.html'; 
                     });
                 }
